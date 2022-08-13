@@ -4,7 +4,7 @@ namespace Origin.API.DTO
 {
     public class LockPinDTO
     {
-        [Required]
+        [Required(ErrorMessage = "Id es requerido")]
         public string Id { get; set; }
     }
 }

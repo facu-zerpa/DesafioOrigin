@@ -17,6 +17,14 @@ const Withdraw = () => {
   }
 
   const onClick = () => {
+    if (ammount <= 0) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Monto incorrecto',
+        text: 'Ingrese un valor distinto a 0'
+      });
+      return;
+    }
     withDraw()
       .then(result => {
         setOperation(result.data)
@@ -45,14 +53,14 @@ const Withdraw = () => {
     <div className='container mt-4'>
       <div className='row d-flex justify-content-center'>
         <div className='col-3'>
-          <label for="ammount" className="form-label">Monto</label>
+          <label htmlFor="ammount" className="form-label">Monto</label>
           <input type='number' min={0.00} step="0.01" className="form-control" id="ammount" onChange={onChange} value={ammount} />
           <div className='d-flex justify-content-end'>
             <button type="button" className="btn btn-primary mt-2" onClick={onClick}>Aceptar</button>
             <button type="button" className="btn btn-secondary mt-2 mx-1" onClick={limpiar}>Limpiar</button>
           </div>
         </div>
-        {viewDetail && <DetailWithdraw data={operation}/>}
+        {viewDetail && <DetailWithdraw data={operation} />}
       </div>
     </div>
   )

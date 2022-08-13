@@ -14,6 +14,23 @@ const Home = () => {
   }
 
   const onClick = () => {
+    const regNumberCard = /^[0-9]{3,4}(-[0-9]{3,4})?(-[0-9]{3,4})?(-[0-9]{3,4})?$/;
+    if (!regNumberCard.test(number)) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Tarjeta obligatoria',
+        text: 'Solo se permiten digitos.'
+      });
+      return;
+    }
+    if (number.length !== 19) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Tarjeta obligatoria',
+        text: 'Consta de 16 digitos numericos.'
+      });
+      return;
+    }
     verifyNumber()
       .then(response => {
         navigate(`/${response.data.id}`);
@@ -28,7 +45,7 @@ const Home = () => {
   }
 
   const OnChange = (event) => {
-    let inputLength = event.target.value.length;
+    const inputLength = event.target.value.length;
     if (inputLength === 20) {
       return false;
     }
@@ -41,14 +58,18 @@ const Home = () => {
     }
   }
 
+  const resetNumberCard = () => {
+    setNumber("");
+  }
+
   return (
     <div className='container d-flex justify-content-center align-items-center' style={{ width: "100vw", height: "100vh" }}>
       <div>
-        <label for="card" className="form-label">Number Card</label>
+        <label htmlFor="card" className="form-label">Number Card</label>
         <input type='text' className="form-control" id="card" placeholder="1111-1111-1111-1111" onChange={OnChange} value={number} />
         <div className='mt-2'>
           <button type="button" className="btn btn-primary" style={{ marginRight: "15px" }} onClick={onClick}>Aceptar</button>
-          <button type="button" className="btn btn-secondary">Limpiar</button>
+          <button type="button" className="btn btn-secondary" onClick={resetNumberCard}>Limpiar</button>
         </div>
       </div>
     </div>

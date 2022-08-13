@@ -4,7 +4,7 @@ namespace Origin.API.DTO
 {
     public class BalanceDTO
     {
-        [Required]
+        [Required(ErrorMessage = "Id es requerido")]
         public string Id { get; set; }
     }
 }
