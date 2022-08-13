@@ -22,6 +22,7 @@ namespace Origin.API.Controllers
         public ActionResult VerifyNumber([FromBody] VerifyNumberDTO verifyNumberDTO)
         {
             var numberCard = verifyNumberDTO.Number;
+            // Verifica numero de tarjeta y si esta bloqueada
             var card = cardRepository.VerifyNumberCard(numberCard).Result;
             if (card is null)
             {
@@ -36,6 +37,7 @@ namespace Origin.API.Controllers
         {
             var id = verifyIdPinDTO.Id;
             var pin = verifyIdPinDTO.Pin;
+            // Verifica Pin de la tarjeta
             var cardExist = cardRepository.VerifyPinCard(id, pin).Result;
             return cardExist ? Ok() : NotFound(new { msj = "Pin Incorrecto" });
         }

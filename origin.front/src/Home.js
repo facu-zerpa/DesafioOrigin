@@ -8,7 +8,7 @@ const Home = () => {
   const navigate = useNavigate();
 
   const verifyNumber = async () => {
-    let numberCard = number.split('-').join('');
+    let numberCard = number.split('-').join(''); 
     const res = Axios.post(`https://localhost:7208/api/card/verify/number`, { number: numberCard });
     return await res;
   }

@@ -3,10 +3,12 @@ import React from 'react';
 const Balance = (props) => {
   const { number, dueDate, balance } = props.data;
 
+  // formato tarjeta 1111-1111-1111-1111
   const formatNumber = (number) => {
     return `${number.slice(0, 4)}-${number.slice(4, 8)}-${number.slice(8, 12)}-${number.slice(12, 16)}`
   }
 
+  // formato dd/MM/yyyy
   const formatDate = (date) => {
     return `${date.split(' ')[0]}`
   }

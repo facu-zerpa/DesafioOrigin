@@ -32,12 +32,15 @@ namespace Origin.API.Controllers
         public ActionResult Balance([FromBody] BalanceDTO balanceDTO)
         {
             var id = balanceDTO.Id;
+
+            // Obtenemos la tarjeta
             var card = cardRepository.GetCard(id).Result;
             if (card is null)
             {
                 return NotFound(new { msj = "Tarjeta invalida / Pin Bloqueado"});
             }
 
+            // Creamos la operacion Balance
             var result = operationRepository.InsertOperationBalance(new Operation
             {
                 CardId = card.Id,
@@ -51,6 +54,7 @@ namespace Origin.API.Controllers
                 return BadRequest();
             }
             
+            // Mapeamos para la respuesta
             var dto = mapper.Map<ResponseBalanceDTO>(card);
             
             return Ok(dto);
@@ -61,7 +65,8 @@ namespace Origin.API.Controllers
         {
             var id = withDrawDTO.Id;
             var amount = withDrawDTO.Ammount;
-            
+
+            // Obtenemos la tarjeta
             var card = cardRepository.GetCard(id).Result;
 
             if (card.Balance.CompareTo(amount) == -1)
@@ -69,6 +74,7 @@ namespace Origin.API.Controllers
                 return BadRequest(new { msj = "No cuenta con el suficiente saldo en su cuenta" });
             }
             
+            // Actualizamos saldo de la tarjeta
             var discountBalance = cardRepository.DiscountBalance(id, amount).Result;
             
             if (!discountBalance)
@@ -76,6 +82,7 @@ namespace Origin.API.Controllers
                 return BadRequest();
             }
 
+            // Creamos operacion RETIRAR
             var operation = operationRepository.InsertOperationWidtdraw(new Operation
             {
                 CardId = card.Id,
@@ -90,6 +97,7 @@ namespace Origin.API.Controllers
                 return BadRequest();
             }
 
+            // Mapeamos objeto para la respuesta
             var dto = mapper.Map<ResponseWithdrawDTO>(operation);
 
             return Ok(dto);
