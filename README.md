@@ -15,7 +15,7 @@ Update-Database
 ```
 Datos Mock
 * Numero Tarjeta Crudo: **1111111111111111**
-* Numero Tarjeta Encriptada: **IFzQNfpja7RfeFU4Hsl+KQ==**
+* Id Tarjeta Encriptada: **IFzQNfpja7RfeFU4Hsl+KQ==**
 * Pin Crudo: **1234**
 * Pin Crudo Actualizado: **4321**
 
